@@ -1,0 +1,129 @@
+---
+title: "calendR Package"
+author: "Nicole Hill"
+date: "October 9, 2020"
+output:
+  html_document:
+    theme: yeti
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# What is calendR?
+
+> `calendR` is an R package that allows you to create, customize, and print wall calendars (if you're still into that). Calendars can be created by single month or by year view. 
+
+
+# How Do I Use calendR?
+
+## Install Package 
+
+```{r, message=FALSE}
+# USE install.packages("calendR") TO INSTALL THE PACKAGE
+
+library(calendR) # USE PACKAGE
+
+```
+
+## Let's Create a Single Month Calendar
+
+> We'll need to specify what month and year we want 
+
+```{r}
+calendR( year = 2020 , month = 10 ) # THIS WILL RETURN A CALENDAR FOR OCTOBER 2020
+```
+
+> Nice! Now let's add some birthdays and Halloween. 
+
+```{r}
+calendR( year = 2020 , month = 10 ,  
+         
+        text = c( "Teri's Birthday", 
+                  "Jon's Birthday" ,
+                  "Halloween" ) , # ADD TEXT FOR BIRTHDAYS AND HALLOWEEN
+        text.pos = c( 15 , 24 , 31 ) , # SPECIFY WHAT DAY THIS TEXT SHOULD APPEAR ON
+        text.size = 3 # SINCE THE TEXT IS LENGTHY, LET'S MAKE IT SMALLER
+        )
+```
+
+> Looking good! Let's finish it off by color blocking days we have work meetings. 
+
+```{r}
+calendR( year = 2020 , month = 10 ,   
+         
+        text = c( "Teri's Birthday", "Jon's Birthday" , "Halloween" ) ,     
+        text.pos = c( 15 , 24 , 31 ) ,                                     
+        text.size = 3 , 
+        
+        special.days = c( 1 , 12 , 19 ) , # THIS ARGUMENT ALLOWS US TO COLOR CODE IMPORTANT DAYS
+        special.col = "yellow" # PICK A PRETTY COLOR FOR OUR IMPORTANT DAYS (WORK MEETINGS)
+        
+        )
+```
+
+### Congrats! You just made a single month calendar that is ready to be saved, printed, and displayed. 
+
+
+## Now Let's Create a Yearly Calendar
+
+> Let's create a calendar for 2021...the future is bright, right?
+
+```{r}
+calendR( year = 2021 ) # THIS WILL RETURN A CALENDAR FOR ALL OF 2021
+```
+
+> Remeber the `special.days` argument? Let's use that to color all of the 2021 holidays. This will take a bit of work since the days are treated 1 - 365. For example, Valentine's Day would not be 14, it would be 45 since it on the 45th day of the year. Luckily, the internet has taken care of this for us and there are several [websites](https://www.wincalendar.com/Calendar/Date/January-1-2021) that have done the math. 
+
+```{r}
+calendR( year = 2021 ,
+
+        special.days = c( 1 , 18 , 45 , 46 , 76 , 94 , 129 , 151 , 171 , 
+                          185 , 249 , 254 , 284 , 304 , 315 , 329 , 359 ) , # 2021 HOLIDAYS
+        special.col = "purple" # PICK A PRETTY COLOR FOR THE HOLIDAYS
+)
+```
+
+> Let's really jazz it up with a nice background! Do a quick search and copy the image address to the background you like. 
+
+```{r}
+calendR( year = 2021 ,
+
+        special.days = c( 1 , 18 , 45 , 46 , 76 , 94 , 129 , 151 , 171 , 
+                          185 , 249 , 254 , 284 , 304 , 315 , 329 , 359 ) ,  
+        special.col = "purple" , 
+        
+        bg.img = "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" # URL TO BACKGROUND IMAGE
+        
+)
+```
+
+> It looks a little squished - let's remove the grid from the days and shorten the weekday names.
+
+```{r}
+calendR( year = 2021 ,
+
+        special.days = c( 1 , 18 , 45 , 46 , 76 , 94 , 129 , 151 , 171 , 
+                          185 , 249 , 254 , 284 , 304 , 315 , 329 , 359 ) ,  
+        special.col = "purple" , 
+        bg.img = "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" ,
+       
+        lty= 0 , # LINE TYPE - USE 0 FOR NO GRID
+        weeknames = c( "M" , "T" , "W" , "T" , 
+                       "F" , "S" , "S" ) # CHANGE THE NAMES OF THE DAYS OF THE WEEK
+                    
+)
+```
+
+### Beautiful! You just made a yearly month calendar that is ready to be saved, printed, and displayed. 
+
+
+> There are many more customization arguments availble within this package, the examples above were fairly simple calendars.  Lunar phases, background color, paper size, start day, and more can all be customized. For a full list of customizable elements, see the `calendR` R Documentation.   
+
+
+
+### Notes
+
+`calendR` utilizes `ggplot2`. This package was created by José Carlos Soage González and Natalia Pérez Veiga.  For more information, see `calendR` R Documentation.   
